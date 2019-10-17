@@ -1,0 +1,36 @@
+2019-09-12 14:05:13 Error: Fatal Error (1): Class 'IntlDateFormatter' not found in [C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Type\DateTimeType.php, line 375]
+Trace:
+Cake\Error\BaseErrorHandler::handleFatalError() - CORE\src\Error\BaseErrorHandler.php, line 229
+Cake\Error\BaseErrorHandler::Cake\Error\{closure}() - CORE\src\Error\BaseErrorHandler.php, line 109
+[main] - [internal], line ??
+
+
+
+2019-09-12 14:05:13 Error: [Cake\Error\FatalErrorException] Class 'IntlDateFormatter' not found in C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Type\DateTimeType.php on line 375
+Stack Trace:
+#0 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Error\BaseErrorHandler.php(109): Cake\Error\BaseErrorHandler->handleFatalError(1, 'Class 'IntlDate...', 'C:\\UniServerZ\\w...', 375)
+#1 [internal function]: Cake\Error\BaseErrorHandler->Cake\Error\{closure}()
+#2 {main}
+
+
+2019-09-12 14:09:30 Error: [PDOException] SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it.
+ in C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Driver.php on line 92
+Stack Trace:
+#0 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Driver.php(92): PDO->__construct('mysql:host=loca...', 'root', 'mysql', Array)
+#1 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Driver\Mysql.php(106): Cake\Database\Driver->_connect('mysql:host=loca...', Array)
+#2 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Schema\BaseSchema.php(45): Cake\Database\Driver\Mysql->connect()
+#3 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Dialect\MysqlDialectTrait.php(63): Cake\Database\Schema\BaseSchema->__construct(Object(Cake\Database\Driver\Mysql))
+#4 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Schema\Collection.php(52): Cake\Database\Driver\Mysql->schemaDialect()
+#5 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Schema\CachedCollection.php(42): Cake\Database\Schema\Collection->__construct(Object(Cake\Database\Connection))
+#6 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Database\Connection.php(391): Cake\Database\Schema\CachedCollection->__construct(Object(Cake\Database\Connection), true)
+#7 C:\UniServerZ\www\application_uni\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(1095): Cake\Database\Connection->getSchemaCollection()
+#8 C:\UniServerZ\www\application_uni\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(1049): Bake\Shell\Task\ModelTask->_getAllTables()
+#9 C:\UniServerZ\www\application_uni\vendor\cakephp\bake\src\Shell\Task\ModelTask.php(1064): Bake\Shell\Task\ModelTask->listAll()
+#10 C:\UniServerZ\www\application_uni\vendor\cakephp\bake\src\Shell\BakeShell.php(258): Bake\Shell\Task\ModelTask->listUnskipped()
+#11 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Console\Shell.php(518): Bake\Shell\BakeShell->all()
+#12 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Console\CommandRunner.php(384): Cake\Console\Shell->runCommand(Array, true)
+#13 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Console\CommandRunner.php(162): Cake\Console\CommandRunner->runShell(Object(Bake\Shell\BakeShell), Array)
+#14 C:\UniServerZ\www\application_uni\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#15 {main}
+
+
