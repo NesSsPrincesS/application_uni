@@ -254,7 +254,7 @@ return [
     'Datasources' => [
         'default' => [
             'className' => Connection::class,
-            'driver' => Mysql::class,
+            'driver' => \Cake\Database\Driver\Sqlite::class,
             'persistent' => false,
             'host' => 'localhost',
             /*
@@ -265,7 +265,7 @@ return [
             //'port' => 'non_standard_port_number',
             'username' => 'root',
             'password' => 'mysql',
-            'database' => 'application_etudiants_uni',
+            'database' => ROOT . DS . 'sqlite' . DS . 'application_etudiants_uni.sqlite',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
              */
