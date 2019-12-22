@@ -60,12 +60,26 @@ class ProgramApplicationsController extends AppController {
             }
             $this->Flash->error(__('The program application could not be saved. Please, try again.'));
         }
-        $users = $this->ProgramApplications->Users->find('list', ['limit' => 200]);
+        //$users = $this->ProgramApplications->Users->find('list', ['limit' => 200]);
         $applicationOutcomes = $this->ProgramApplications->ApplicationOutcomes->find('list', ['limit' => 200]);
         $applicationStatus = $this->ProgramApplications->ApplicationStatus->find('list', ['limit' => 200]);
-        $programs = $this->ProgramApplications->Programs->find('list', ['limit' => 200]);
         $universities = $this->ProgramApplications->Universities->find('list', ['limit' => 200]);
-        $this->set(compact('programApplication', 'users', 'applicationOutcomes', 'applicationStatus', 'programs', 'universities'));
+        $faculties = $this->ProgramApplications->Programs->Faculties->find('list', ['limit' => 200]);
+        
+        // Bâtir la liste des catégories  
+        $this->loadModel('Faculties');
+        // Extraire le id de la première catégorie
+        $faculties = $faculties->toArray();
+        reset($faculties);
+        $faculty_id = key($faculties);
+
+        // Bâtir la liste des sous-catégories reliées à cette catégorie
+        $programs = $this->ProgramApplications->Programs->find('list', [
+            'conditions' => ['Programs.faculty_id' => $faculty_id],
+        ]);
+
+        $this->set(compact('programApplication', 'users', 'applicationOutcomes', 'applicationStatus', 'programs', 'universities', 'faculties'));
+        $this->set('_serialize', ['programApplication', 'programs', 'faculties']);
     }
 
     /**
@@ -90,10 +104,22 @@ class ProgramApplicationsController extends AppController {
             }
             $this->Flash->error(__('The program application could not be saved. Please, try again.'));
         }
+        
+        // Bâtir la liste des catégories  
+        $this->loadModel('Faculties');
+        $faculties = $this->Faculties->find('list', ['limit' => 200]);
+
+        $faculties = $faculties->toArray();
+        reset($faculties);
+        $faculty_id = key($faculties);
+
+        $programs = $this->ProgramApplications->Programs->find('list', [
+            'conditions' => ['Programs.$faculty_id' => $faculty_id],
+        ]);
+        
         $users = $this->ProgramApplications->Users->find('list', ['limit' => 200]);
         $applicationOutcomes = $this->ProgramApplications->ApplicationOutcomes->find('list', ['limit' => 200]);
         $applicationStatus = $this->ProgramApplications->ApplicationStatus->find('list', ['limit' => 200]);
-        $programs = $this->ProgramApplications->Programs->find('list', ['limit' => 200]);
         $universities = $this->ProgramApplications->Universities->find('list', ['limit' => 200]);
         $this->set(compact('programApplication', 'users', 'applicationOutcomes', 'applicationStatus', 'programs', 'universities'));
     }

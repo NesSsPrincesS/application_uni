@@ -12,6 +12,36 @@ use App\Controller\AppController;
  */
 class ProgramsController extends AppController
 {
+    
+    public function initialize() {
+        parent::initialize();
+        $this->Auth->allow(['getByFaculty', 'autocompletedemo', 'findPrograms', 'index']);
+        }
+    
+    public function findPrograms() {
+        $this->layout = 'ajax';
+        Configure::write('debug', 0);
+        if ($this->request->is('ajax')) {
+
+            $this->autoRender = false;
+            $name = $this->request->query['term'];
+            $results = $this->Programs->find('all', array(
+                'conditions' => array('Programs.name LIKE ' => '%' . $name . '%')
+            ));
+
+            $resultArr = array();
+            foreach ($results as $result) {
+            echo $result['name'];
+                $resultArr[] = array('label' => $result['name'], 'value' => $result['name']);
+            }
+            echo json_encode($resultArr);
+        }
+    }
+
+    public function autocompletedemo() {
+        
+    }
+    
     /**
      * Index method
      *
@@ -22,6 +52,16 @@ class ProgramsController extends AppController
         $programs = $this->paginate($this->Programs);
 
         $this->set(compact('programs'));
+    }
+    
+    public function getByFaculty() {
+        $faculty_id = $this->request->query('$faculty_id');
+
+        $programs = $this->Programs->find('all', [
+            'conditions' => ['Programs.$faculty_id' => $faculty_id],
+        ]);
+        $this->set('programs', $programs);
+        $this->set('_serialize', ['programs']);
     }
 
     /**

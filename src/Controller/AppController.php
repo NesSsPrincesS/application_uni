@@ -17,6 +17,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\I18n\I18n;
 
 /**
  * Application Controller
@@ -39,17 +40,12 @@ class AppController extends Controller {
      */
     public function initialize() {
         parent::initialize();
-
+        
+        $this->viewBuilder()->layout('frontend');
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
         $this->loadComponent('Flash');
-
-        /*
-         * Enable the following component for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
 
         $this->loadComponent('Auth', [
             'authorize' => 'Controller',
@@ -70,8 +66,32 @@ class AppController extends Controller {
         ]);
         $this->Auth->allow(['display', 'index', 'new']);
     }
+    
+    /**
+     * Before render callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return \Cake\Http\Response|null|void
+     */
+    public function beforeRender(Event $event) {
+        // Note: These defaults are just to get started quickly with development
+        // and should not be used in production. You should instead set "_serialize"
+        // in each action as required.
+        if (!array_key_exists('_serialize', $this->viewVars) &&
+                in_array($this->response->type(), ['application/json', 'application/xml'])
+        ) {
+            $this->set('_serialize', true);
+        }
+
+    }
+
+    public function beforeFilter(Event $event) {
+        $this->Auth->allow(['index', 'view', 'display', 'getByFaculty', 'getProgramsSortedByFaculties', 'getFaculties']);
+    }
+
 
     public function isAuthorized($user) {
+        
         return false;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -24,16 +25,15 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\ProgramApplication[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\ProgramApplication findOrCreate($search, callable $callback = null, $options = [])
  */
-class ProgramApplicationsTable extends Table
-{
+class ProgramApplicationsTable extends Table {
+
     /**
      * Initialize method
      *
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
-    {
+    public function initialize(array $config) {
         parent::initialize($config);
 
         $this->setTable('program_applications');
@@ -68,15 +68,14 @@ class ProgramApplicationsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
-    {
+    public function validationDefault(Validator $validator) {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
+                ->integer('id')
+                ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->dateTime('created')
-            ->allowEmptyDateTime('created');
+                ->dateTime('created')
+                ->allowEmptyDateTime('created');
 
         return $validator;
     }
@@ -88,8 +87,7 @@ class ProgramApplicationsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
-    {
+    public function buildRules(RulesChecker $rules) {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['application_outcome_id'], 'ApplicationOutcomes'));
         $rules->add($rules->existsIn(['application_status_id'], 'ApplicationStatus'));
@@ -98,4 +96,5 @@ class ProgramApplicationsTable extends Table
 
         return $rules;
     }
+
 }

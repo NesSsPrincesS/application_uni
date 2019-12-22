@@ -44,6 +44,10 @@ class ProgramsTable extends Table
             'targetForeignKey' => 'program_id',
             'joinTable' => 'Program_applications'
         ]);
+        $this->belongsTo('Faculties', [
+            'foreignKey' => 'faculty_id'
+        ]);
+        
     }
 
     /**
@@ -69,5 +73,11 @@ class ProgramsTable extends Table
             ->allowEmptyString('Description');
 
         return $validator;
+    }
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['faculty_id'], 'Faculties'));
+
+        return $rules;
     }
 }

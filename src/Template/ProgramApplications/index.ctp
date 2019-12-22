@@ -1,12 +1,12 @@
 <?php
 /**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\ProgramApplication[]|\Cake\Collection\CollectionInterface $programApplications
- */
+* @var \App\View\AppView $this
+* @var \App\Model\Entity\ProgramApplication[]|\Cake\Collection\CollectionInterface $programApplications
+*/
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+<?php
+$this->start('tb_actions');
+?>
         <li><?= $this->Html->link(__('New Program Application'), ['action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
@@ -14,10 +14,20 @@
         <li><?= $this->Html->link(__('New Program'), ['controller' => 'Programs', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Universities'), ['controller' => 'Universities', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New University'), ['controller' => 'Universities', 'action' => 'add']) ?></li>
+<?php
+$this->end();
+?>
+<div class="dropdown hidden-xs">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <?= __("Actions") ?>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <?= $this->fetch('tb_actions') ?>
     </ul>
-</nav>
+</div>
 <div class="programApplications index large-9 medium-8 columns content">
-    <h3><?= __('Program Applications') ?></h3>
+    <h3><?= __('Program Applications') ?></h3>    
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>

@@ -4,17 +4,27 @@
  * @var \App\Model\Entity\Program $program
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+<?php
+$this->start('tb_actions');
+?>
         <li><?= $this->Html->link(__('Edit Program'), ['action' => 'edit', $program->id]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Program'), ['action' => 'delete', $program->id], ['confirm' => __('Are you sure you want to delete # {0}?', $program->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Programs'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Program'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Program Applications'), ['controller' => 'ProgramApplications', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Program Application'), ['controller' => 'ProgramApplications', 'action' => 'add']) ?> </li>
+<?php
+$this->end();
+?>
+<div class="dropdown hidden-xs">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <?= __("Actions") ?>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <?= $this->fetch('tb_actions') ?>
     </ul>
-</nav>
+</div>
 <div class="programs view large-9 medium-8 columns content">
     <h2><?= h($program->name) ?></h2>
     <div class="row">

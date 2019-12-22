@@ -4,9 +4,9 @@
  * @var \App\Model\Entity\ProgramApplication $programApplication
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+<?php
+$this->start('tb_actions');
+?>
         <li><?= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $programApplication->id],
@@ -24,8 +24,18 @@
         <li><?= $this->Html->link(__('New Program'), ['controller' => 'Programs', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Universities'), ['controller' => 'Universities', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New University'), ['controller' => 'Universities', 'action' => 'add']) ?></li>
+<?php
+$this->end();
+?>
+<div class="dropdown hidden-xs">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <?= __("Actions") ?>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <?= $this->fetch('tb_actions') ?>
     </ul>
-</nav>
+</div>
 <div class="programApplications form large-9 medium-8 columns content">
     <?= $this->Form->create($programApplication) ?>
     <fieldset>

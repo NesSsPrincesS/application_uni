@@ -4,9 +4,9 @@
  * @var \App\Model\Entity\ProgramApplication $programApplication
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
+<?php
+$this->start('tb_actions');
+?>
         <li><?= $this->Html->link(__('Edit Program Application'), ['action' => 'edit', $programApplication->id]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Program Application'), ['action' => 'delete', $programApplication->id], ['confirm' => __('Are you sure you want to delete # {0}?', $programApplication->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Program Applications'), ['action' => 'index']) ?> </li>
@@ -21,8 +21,18 @@
         <li><?= $this->Html->link(__('New Program'), ['controller' => 'Programs', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Universities'), ['controller' => 'Universities', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New University'), ['controller' => 'Universities', 'action' => 'add']) ?> </li>
+<?php
+$this->end();
+?>
+<div class="dropdown hidden-xs">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <?= __("Actions") ?>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <?= $this->fetch('tb_actions') ?>
     </ul>
-</nav>
+</div>
 <div class="programApplications view large-9 medium-8 columns content">
     <h3>Application <?= h($programApplication->id) ?> </h3>
     <table class="vertical-table">
@@ -41,6 +51,10 @@
         <tr>
             <th scope="row"><?= __('Application Status') ?></th>
             <td><?= $programApplication->has('application_status') ? $this->Html->link($programApplication->application_status->status, ['controller' => 'ApplicationStatus', 'action' => 'view', $programApplication->application_status->id]) : '' ?></td>
+        </tr>
+        <tr>
+            <th scope="row"><?= __('Faculty') ?></th>
+            <td><?= $programApplication->has('faculty') ? $this->Html->link($programApplication->faculty->name, ['controller' => 'Faculties', 'action' => 'view', $programApplication->faculty->id]) : '' ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Program') ?></th>
