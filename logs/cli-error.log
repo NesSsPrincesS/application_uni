@@ -370,3 +370,33 @@ Stack Trace:
 #18 {main}
 
 
+2019-12-23 01:10:54 Error: [Cake\Core\Exception\MissingPluginException] Plugin ADmad/JwtAuth could not be found. in C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Core\PluginCollection.php on line 137
+Exception Attributes: array (
+  'plugin' => 'ADmad/JwtAuth',
+)
+Stack Trace:
+#0 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Core\Plugin.php(140): Cake\Core\PluginCollection->findPath('ADmad/JwtAuth')
+#1 C:\UniServerZ\www\application_uni\config\bootstrap.php(226): Cake\Core\Plugin::load('ADmad/JwtAuth')
+#2 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Http\BaseApplication.php(151): require_once('C:\\UniServerZ\\w...')
+#3 C:\UniServerZ\www\application_uni\src\Application.php(40): Cake\Http\BaseApplication->bootstrap()
+#4 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Console\CommandRunner.php(189): App\Application->bootstrap()
+#5 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Console\CommandRunner.php(132): Cake\Console\CommandRunner->bootstrap()
+#6 C:\UniServerZ\www\application_uni\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#7 {main}
+
+
+2019-12-23 01:11:46 Error: [Cake\Core\Exception\MissingPluginException] Plugin ADmad/JwtAuth could not be found. in C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Core\PluginCollection.php on line 137
+Exception Attributes: array (
+  'plugin' => 'ADmad/JwtAuth',
+)
+Stack Trace:
+#0 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Core\Plugin.php(140): Cake\Core\PluginCollection->findPath('ADmad/JwtAuth')
+#1 C:\UniServerZ\www\application_uni\config\bootstrap.php(226): Cake\Core\Plugin::load('ADmad/JwtAuth')
+#2 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Http\BaseApplication.php(151): require_once('C:\\UniServerZ\\w...')
+#3 C:\UniServerZ\www\application_uni\src\Application.php(40): Cake\Http\BaseApplication->bootstrap()
+#4 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Console\CommandRunner.php(189): App\Application->bootstrap()
+#5 C:\UniServerZ\www\application_uni\vendor\cakephp\cakephp\src\Console\CommandRunner.php(132): Cake\Console\CommandRunner->bootstrap()
+#6 C:\UniServerZ\www\application_uni\bin\cake.php(12): Cake\Console\CommandRunner->run(Array)
+#7 {main}
+
+

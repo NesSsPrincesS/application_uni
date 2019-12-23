@@ -29,6 +29,7 @@ use Cake\I18n\I18n;
  */
 class AppController extends Controller {
 
+    use \Crud\Controller\ControllerTrait;
     /**
      * Initialization hook method.
      *
@@ -41,29 +42,41 @@ class AppController extends Controller {
     public function initialize() {
         parent::initialize();
         
-        $this->viewBuilder()->layout('frontend');
-        $this->loadComponent('RequestHandler', [
-            'enableBeforeRedirect' => false,
+        $this->loadComponent('RequestHandler');
+        $this->loadComponent('Crud.Crud', [
+            'actions' => [
+                'Crud.Index',
+                'Crud.View',
+                'Crud.Add',
+                'Crud.Edit',
+                'Crud.Delete'
+            ],
+            'listeners' => [
+                'Crud.Api',
+                'Crud.ApiPagination',
+                'Crud.ApiQueryLog'
+            ]
         ]);
-        $this->loadComponent('Flash');
-
         $this->loadComponent('Auth', [
-            'authorize' => 'Controller',
+            'storage' => 'Memory',
             'authenticate' => [
                 'Form' => [
+                    'scope' => ['Users.active' => 1]
+                ],
+                'ADmad/JwtAuth.Jwt' => [
+                    'parameter' => 'token',
+                    'userModel' => 'Users',
+                    'scope' => ['Users.active' => 1],
                     'fields' => [
-                        'username' => 'email',
-                        'password' => 'password'
-                    ]
+                        'username' => 'id'
+                    ],
+                    'queryDatasource' => true
                 ]
             ],
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
-            // Si pas autorisé, on renvoit sur la page précédente
-            'unauthorizedRedirect' => $this->referer()
+            'unauthorizedRedirect' => false,
+            'checkAuthIn' => 'Controller.initialize'
         ]);
+ 
         $this->Auth->allow(['display', 'index', 'new']);
     }
     

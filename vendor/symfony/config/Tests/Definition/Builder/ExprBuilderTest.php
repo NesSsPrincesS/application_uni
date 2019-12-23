@@ -31,7 +31,7 @@ class ExprBuilderTest extends TestCase
             ->ifTrue()
             ->then($this->returnClosure('new_value'))
         ->end();
-        $this->assertFinalizedValueIs('new_value', $test, ['key' => true]);
+        $this->assertFinalizedValueIs('new_value', $test, array('key' => true));
 
         $test = $this->getTestBuilder()
             ->ifTrue(function ($v) { return true; })
@@ -58,7 +58,7 @@ class ExprBuilderTest extends TestCase
             ->ifString()
             ->then($this->returnClosure('new_value'))
         ->end();
-        $this->assertFinalizedValueIs(45, $test, ['key' => 45]);
+        $this->assertFinalizedValueIs(45, $test, array('key' => 45));
     }
 
     public function testIfNullExpression()
@@ -67,7 +67,7 @@ class ExprBuilderTest extends TestCase
             ->ifNull()
             ->then($this->returnClosure('new_value'))
         ->end();
-        $this->assertFinalizedValueIs('new_value', $test, ['key' => null]);
+        $this->assertFinalizedValueIs('new_value', $test, array('key' => null));
 
         $test = $this->getTestBuilder()
             ->ifNull()
@@ -82,7 +82,7 @@ class ExprBuilderTest extends TestCase
             ->ifEmpty()
             ->then($this->returnClosure('new_value'))
         ->end();
-        $this->assertFinalizedValueIs('new_value', $test, ['key' => []]);
+        $this->assertFinalizedValueIs('new_value', $test, array('key' => array()));
 
         $test = $this->getTestBuilder()
             ->ifEmpty()
@@ -97,7 +97,7 @@ class ExprBuilderTest extends TestCase
             ->ifArray()
             ->then($this->returnClosure('new_value'))
         ->end();
-        $this->assertFinalizedValueIs('new_value', $test, ['key' => []]);
+        $this->assertFinalizedValueIs('new_value', $test, array('key' => array()));
 
         $test = $this->getTestBuilder()
             ->ifArray()
@@ -109,13 +109,13 @@ class ExprBuilderTest extends TestCase
     public function testIfInArrayExpression()
     {
         $test = $this->getTestBuilder()
-            ->ifInArray(['foo', 'bar', 'value'])
+            ->ifInArray(array('foo', 'bar', 'value'))
             ->then($this->returnClosure('new_value'))
         ->end();
         $this->assertFinalizedValueIs('new_value', $test);
 
         $test = $this->getTestBuilder()
-            ->ifInArray(['foo', 'bar'])
+            ->ifInArray(array('foo', 'bar'))
             ->then($this->returnClosure('new_value'))
         ->end();
         $this->assertFinalizedValueIs('value', $test);
@@ -124,13 +124,13 @@ class ExprBuilderTest extends TestCase
     public function testIfNotInArrayExpression()
     {
         $test = $this->getTestBuilder()
-            ->ifNotInArray(['foo', 'bar'])
+            ->ifNotInArray(array('foo', 'bar'))
             ->then($this->returnClosure('new_value'))
         ->end();
         $this->assertFinalizedValueIs('new_value', $test);
 
         $test = $this->getTestBuilder()
-            ->ifNotInArray(['foo', 'bar', 'value_from_config'])
+            ->ifNotInArray(array('foo', 'bar', 'value_from_config'))
             ->then($this->returnClosure('new_value'))
         ->end();
         $this->assertFinalizedValueIs('new_value', $test);
@@ -142,7 +142,7 @@ class ExprBuilderTest extends TestCase
             ->ifString()
             ->thenEmptyArray()
         ->end();
-        $this->assertFinalizedValueIs([], $test);
+        $this->assertFinalizedValueIs(array(), $test);
     }
 
     /**
@@ -153,15 +153,15 @@ class ExprBuilderTest extends TestCase
         $test = $this->getTestBuilder()
             ->castToArray()
         ->end();
-        $this->assertFinalizedValueIs($expectedValue, $test, ['key' => $configValue]);
+        $this->assertFinalizedValueIs($expectedValue, $test, array('key' => $configValue));
     }
 
     public function castToArrayValues()
     {
-        yield ['value', ['value']];
-        yield [-3.14, [-3.14]];
-        yield [null, [null]];
-        yield [['value'], ['value']];
+        yield array('value', array('value'));
+        yield array(-3.14, array(-3.14));
+        yield array(null, array(null));
+        yield array(array('value'), array('value'));
     }
 
     /**
@@ -182,7 +182,7 @@ class ExprBuilderTest extends TestCase
             ->ifString()
             ->thenUnset()
         ->end();
-        $this->assertEquals([], $this->finalizeTestBuilder($test));
+        $this->assertEquals(array(), $this->finalizeTestBuilder($test));
     }
 
     /**
@@ -212,10 +212,10 @@ class ExprBuilderTest extends TestCase
      */
     protected function getTestBuilder()
     {
-        $builder = new TreeBuilder('test');
+        $builder = new TreeBuilder();
 
         return $builder
-            ->getRootNode()
+            ->root('test')
             ->children()
             ->variableNode('key')
             ->validate()
@@ -227,7 +227,7 @@ class ExprBuilderTest extends TestCase
      *
      * @param TreeBuilder $testBuilder The tree builder to finalize
      * @param array       $config      The config you want to use for the finalization, if nothing provided
-     *                                 a simple ['key'=>'value'] will be used
+     *                                 a simple array('key'=>'value') will be used
      *
      * @return array The finalized config values
      */
@@ -238,7 +238,7 @@ class ExprBuilderTest extends TestCase
             ->end()
             ->end()
             ->buildTree()
-            ->finalize(null === $config ? ['key' => 'value'] : $config)
+            ->finalize(null === $config ? array('key' => 'value') : $config)
         ;
     }
 
@@ -265,6 +265,6 @@ class ExprBuilderTest extends TestCase
      */
     protected function assertFinalizedValueIs($value, $treeBuilder, $config = null)
     {
-        $this->assertEquals(['key' => $value], $this->finalizeTestBuilder($treeBuilder, $config));
+        $this->assertEquals(array('key' => $value), $this->finalizeTestBuilder($treeBuilder, $config));
     }
 }

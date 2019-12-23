@@ -4,9 +4,13 @@
         Automne 2019, Collège Montmorency.
         Lien vers le repos git: https://github.com/NesSsPrincesS/application_uni.git
         
-         Les fonctionnalité d'autocomplete et de listes ne fonctionnent pas.
-         Je n'ai pas réussi non plus à faire l'utilisation de Ajax, JQuery et Rest.
-         J'ai tout essayé mais aucune fonctionnalité n'est complete.
+         Les listes liées avec Ajax fonctionne à 100%. 
+         Malheureusement, j'ai eu un bug avant la remise et le site au complet ne s'ouvre plus.
+         Je n'en connais pas la cause.
+         Je n'ai pas reussi à faire fonctionner à 100% AngularJS pour la gestion du modèle de universities.
+         Je n'ai pas reussi non plus à faire fonctionner le Démarrage de session avec un jeton JWT, ni le click et glisse.
+         J'ai rencontrer beaucoup de bug en ajoutant le plugin crud dû à la version de php et pour regler le problème ca m'a pris beaucoup de temps.
+         
          
          Ce site permet de s'enregistrer afin d'appliquer à un programme à l'université.
          Seul l'usager Admin peut changer le outcome de l'application et son status. (Pas encore au point)
@@ -14,5 +18,8 @@
          
          Le site n'est disponible qu'en francais pour le moment.
         
-         <img src="../Diagramme.PNG">
-         <a href="../">Emplacement du diagramme</a>
+         
+         <div>
+             <?php echo $this->Html->image("webroot/img/Diagrame.PNG");?>
+             <?php echo $this->Html->repository("webroot/img");?>
+         </div>

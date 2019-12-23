@@ -18,7 +18,7 @@ class EnumNodeTest extends TestCase
 {
     public function testFinalizeValue()
     {
-        $node = new EnumNode('foo', null, ['foo', 'bar']);
+        $node = new EnumNode('foo', null, array('foo', 'bar'));
         $this->assertSame('foo', $node->finalize('foo'));
     }
 
@@ -28,24 +28,18 @@ class EnumNodeTest extends TestCase
      */
     public function testConstructionWithNoValues()
     {
-        new EnumNode('foo', null, []);
+        new EnumNode('foo', null, array());
     }
 
     public function testConstructionWithOneValue()
     {
-        $node = new EnumNode('foo', null, ['foo']);
+        $node = new EnumNode('foo', null, array('foo'));
         $this->assertSame('foo', $node->finalize('foo'));
     }
 
     public function testConstructionWithOneDistinctValue()
     {
-        $node = new EnumNode('foo', null, ['foo', 'foo']);
-        $this->assertSame('foo', $node->finalize('foo'));
-    }
-
-    public function testConstructionWithNullName()
-    {
-        $node = new EnumNode(null, null, ['foo']);
+        $node = new EnumNode('foo', null, array('foo', 'foo'));
         $this->assertSame('foo', $node->finalize('foo'));
     }
 
@@ -55,7 +49,7 @@ class EnumNodeTest extends TestCase
      */
     public function testFinalizeWithInvalidValue()
     {
-        $node = new EnumNode('foo', null, ['foo', 'bar']);
+        $node = new EnumNode('foo', null, array('foo', 'bar'));
         $node->finalize('foobar');
     }
 }

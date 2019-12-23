@@ -1,16 +1,15 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\University[]|\Cake\Collection\CollectionInterface $universities
- */
+$urlToRestApi = $this->Url->build([
+    'controller' => 'Universities'], true);
+echo $this->Html->scriptBlock('var urlToRestApi = "' . $urlToRestApi . '";', ['block' => true]);
+echo $this->Html->script('Universities/index', ['block' => 'scriptBottom']);
 ?>
 <?php
 $this->start('tb_actions');
 ?>
-        <li><?= $this->Html->link(__('New University'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Program Applications'), ['controller' => 'ProgramApplications', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Program Application'), ['controller' => 'ProgramApplications', 'action' => 'add']) ?></li>
-  <?php
+<li><?= $this->Html->link(__('List Program Applications'), ['controller' => 'ProgramApplications', 'action' => 'index']) ?></li>
+<li><?= $this->Html->link(__('New Program Application'), ['controller' => 'ProgramApplications', 'action' => 'add']) ?></li>
+<?php
 $this->end();
 ?>
 <div class="dropdown hidden-xs">
@@ -22,40 +21,43 @@ $this->end();
         <?= $this->fetch('tb_actions') ?>
     </ul>
 </div>
-<div class="universities index large-9 medium-8 columns content">
-    <h3><?= __('Universities') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('adress') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('web_site') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($universities as $university): ?>
-            <tr>
-                <td><?= h($university->name) ?></td>
-                <td><?= h($university->adress) ?></td>
-                <td><?= h($university->web_site) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $university->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $university->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $university->id], ['confirm' => __('Are you sure you want to delete # {0}?', $university->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
+
+<div  ng-app="app" ng-controller="UniversityCRUDCtrl">
+    <table>
+        <tr>
+            <td width="100">ID:</td>
+            <td><input type="text" id="id" ng-model="university.id" /></td>
+        </tr>
+        <tr>
+            <td width="100">Name:</td>
+            <td><input type="text" id="name" ng-model="university.name" /></td>
+        </tr>
+        <tr>
+            <td width="100">Adress:</td>
+            <td><input type="text" id="description" ng-model="university.adress" /></td>
+        </tr>
+        <tr>
+            <td width="100">Web site:</td>
+            <td><input type="text" id="description" ng-model="university.web_site" /></td>
+        </tr>
     </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+    <br /> <br /> 
+    <a ng-click="getUniversity(university.id)">Get University</a> 
+    <a ng-click="updateUniversity(university.id, university.name, university.adress, university.web_site)">Update University</a> 
+    <a ng-click="addUniversity(university.name, university.adress, university.web_site)">Add University</a> 
+    <a ng-click="deleteUniversity(university.id)">Delete University</a>
+
+    <br /> <br />
+    <p style="color: green">{{message}}</p>
+    <p style="color: red">{{errorMessage}}</p>
+
+    <br />
+    <br /> 
+    <a ng-click="getAllUniversities()">Get all Universities</a><br /> 
+    <br /> <br />
+    <div ng-repeat="university in Universities">
+        {{university.id}} {{university.name}} {{university.adress}} {{university.web_site}}
     </div>
+    <!-- pre ng-show='university'>{{universities | json }}</pre-->
 </div>
+

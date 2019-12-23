@@ -15,8 +15,6 @@ namespace Symfony\Component\Config\Definition;
  * This class is the entry point for config normalization/merging/finalization.
  *
  * @author Johannes M. Schmitt <schmittjoh@gmail.com>
- *
- * @final since version 4.1
  */
 class Processor
 {
@@ -30,7 +28,7 @@ class Processor
      */
     public function process(NodeInterface $configTree, array $configs)
     {
-        $currentConfig = [];
+        $currentConfig = array();
         foreach ($configs as $config) {
             $config = $configTree->normalize($config);
             $currentConfig = $configTree->merge($currentConfig, $config);
@@ -86,14 +84,14 @@ class Processor
         }
 
         if (isset($config[$key])) {
-            if (\is_string($config[$key]) || !\is_int(key($config[$key]))) {
+            if (is_string($config[$key]) || !is_int(key($config[$key]))) {
                 // only one
-                return  [$config[$key]];
+                return  array($config[$key]);
             }
 
             return  $config[$key];
         }
 
-        return [];
+        return array();
     }
 }

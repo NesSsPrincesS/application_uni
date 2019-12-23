@@ -40,10 +40,10 @@ class BooleanNodeTest extends TestCase
 
     public function getValidValues()
     {
-        return [
-            [false],
-            [true],
-        ];
+        return array(
+            array(false),
+            array(true),
+        );
     }
 
     /**
@@ -58,17 +58,17 @@ class BooleanNodeTest extends TestCase
 
     public function getInvalidValues()
     {
-        return [
-            [null],
-            [''],
-            ['foo'],
-            [0],
-            [1],
-            [0.0],
-            [0.1],
-            [[]],
-            [['foo' => 'bar']],
-            [new \stdClass()],
-        ];
+        return array(
+            array(null),
+            array(''),
+            array('foo'),
+            array(0),
+            array(1),
+            array(0.0),
+            array(0.1),
+            array(array()),
+            array(array('foo' => 'bar')),
+            array(new \stdClass()),
+        );
     }
 }

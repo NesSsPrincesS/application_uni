@@ -2,7 +2,10 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Event\Event;
+use Cake\Network\Exception\UnauthorizedException;
+use Cake\Utility\Security;
+use Firebase\JWT\JWT;
 /**
  * Users Controller
  *
@@ -12,6 +15,13 @@ use App\Controller\AppController;
  */
 class UsersController extends AppController
 {
+    
+     public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow(['add', 'token']);
+    }
+    
     /**
      * Index method
      *
